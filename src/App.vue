@@ -1,18 +1,93 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Hello world"/>
+  <h2>欢迎来到太极开发者社区</h2>
+  <div>
+    请选择一个讨论组加入
+  </div>
+  <div>
+    <button 
+      v-for="(item,index) in forums" 
+      :key="index"
+      @click="selectForumFun(index)"
+      >
+        {{ index }} -{{ item }}
+    </button>
+  </div>
+  <div>你选择了【 {{ selectForum }} 】讨论组加入！</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { 
+  reactive, 
+  toRefs,
+  onMounted,
+  onBeforeMount,
+  onBeforeUpdate,
+  onUpdated,
 
-export default defineComponent({
+  } from 'vue';
+
+interface DataProps {
+  forums: string[];
+  selectForum: string;
+  selectForumFun: (index: number) => void;
+}
+
+
+export default{
   name: 'App',
-  components: {
-    HelloWorld
-  }
-});
+  setup() {
+    console.log("1-开始创建组件-----setup()");
+    const data: DataProps = reactive({
+      forums: ["前端开发","大数据","微服务"],
+      selectForum:"",
+      selectForumFun: (index: number) => {
+        data.selectForum= data.forums[index];
+      }
+    })
+
+    onBeforeMount(() => {
+      console.log("2-组件挂载到页面之前执行-----onBeforeMount()");
+    });
+
+    onMounted(() => {
+      console.log("3-组件挂载到页面之后执行-----onMounted()");
+    });
+    onBeforeUpdate(() => {
+      console.log("4-组件更新之前-----onBeforeUpdate()");
+    });
+
+    onUpdated(() => {
+      console.log("5-组件更新之后-----onUpdated()");
+    });
+
+  const refData = toRefs(data)
+  refData.forums
+    // const forums = ref(["前端开发","大数据","微服务"]);
+    // const selectForum = ref("");
+    // const selectForumFun = (index: number) => {
+    //   selectForum.value = forums.value[index];
+    // }
+    return {
+      ...refData
+    }
+  },
+  // beforeCreate() {
+  //   console.log("1-组件创建之前-----beforeCreate()");
+  // },
+  // beforeMount() {
+  //   console.log("2-组件挂载到页面之前执行-----BeforeMount()");
+  // },
+  // mounted() {
+  //   console.log("3-组件挂载到页面之后执行-----Mounted()");
+  // },
+  // beforeUpdate() {
+  //   console.log("4-组件更新之前-----BeforeUpdate()");
+  // },
+  // updated() {
+  //   console.log("5-组件更新之后-----Updated()");
+  // },
+};
 </script>
 
 <style>
