@@ -24,7 +24,8 @@ import {
   onBeforeMount,
   onBeforeUpdate,
   onUpdated,
-
+  onRenderTracked,
+  onRenderTriggered,
   } from 'vue';
 
 interface DataProps {
@@ -46,23 +47,35 @@ export default{
       }
     })
 
-    onBeforeMount(() => {
-      console.log("2-组件挂载到页面之前执行-----onBeforeMount()");
-    });
+    const overText = ref("太极开发者社区")
 
-    onMounted(() => {
-      console.log("3-组件挂载到页面之后执行-----onMounted()");
-    });
-    onBeforeUpdate(() => {
-      console.log("4-组件更新之前-----onBeforeUpdate()");
-    });
+    // 钩子函数模拟
+    // onBeforeMount(() => {
+    //   console.log("2-组件挂载到页面之前执行-----onBeforeMount()");
+    // });
 
-    onUpdated(() => {
-      console.log("5-组件更新之后-----onUpdated()");
-    });
+    // onMounted(() => {
+    //   console.log("3-组件挂载到页面之后执行-----onMounted()");
+    // });
+    // onBeforeUpdate(() => {
+    //   console.log("4-组件更新之前-----onBeforeUpdate()");
+    // });
+
+    // onUpdated(() => {
+    //   console.log("5-组件更新之后-----onUpdated()");
+    // });
+
+    // onRenderTracked((event) =>{
+    //   console.log('状态跟踪钩子函数--------------->')
+    //   console.log(event)
+    // })
+
+    // onRenderTriggered((event) => {
+    //   console.log('状态触发钩子函数--------------->')
+    //   console.log(event)
+    // })
 
   const refData = toRefs(data)
-  refData.forums
     // const forums = ref(["前端开发","大数据","微服务"]);
     // const selectForum = ref("");
     // const selectForumFun = (index: number) => {
