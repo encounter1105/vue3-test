@@ -14,18 +14,22 @@
     </button>
   </div>
   <div>你选择了【 {{ selectForum }} 】讨论组加入！</div>
+  <button @click="overAction">选择完成</button>
+  <div>{{ overText }} </div>
 </template>
 
 <script lang="ts">
 import { 
+  ref,
   reactive, 
   toRefs,
-  onMounted,
-  onBeforeMount,
-  onBeforeUpdate,
-  onUpdated,
-  onRenderTracked,
-  onRenderTriggered,
+  watch
+  // onMounted,
+  // onBeforeMount,
+  // onBeforeUpdate,
+  // onUpdated,
+  // onRenderTracked,
+  // onRenderTriggered,
   } from 'vue';
 
 interface DataProps {
@@ -47,7 +51,7 @@ export default{
       }
     })
 
-    const overText = ref("太极开发者社区")
+  
 
     // 钩子函数模拟
     // onBeforeMount(() => {
@@ -75,14 +79,26 @@ export default{
     //   console.log(event)
     // })
 
-  const refData = toRefs(data)
+  const refData = toRefs(data);
+  const overText = ref("太极开发者社区");
+  const overAction = () =>{
+    overText.value = "选择讨论组完成|" + overText.value
+    // document.title = overText.value
+  }
+  watch([overText,() => data.selectForum],(newValue,oldValue) => {
+    console.log(`new-------->${newValue}`);
+    console.log(`old-------->${oldValue}`);
+    document.title = newValue[0]
+  })
     // const forums = ref(["前端开发","大数据","微服务"]);
     // const selectForum = ref("");
     // const selectForumFun = (index: number) => {
     //   selectForum.value = forums.value[index];
     // }
     return {
-      ...refData
+      ...refData,
+      overText,
+      overAction
     }
   },
   // beforeCreate() {
