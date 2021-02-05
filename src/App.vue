@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <!-- <img alt="Vue logo" src="./assets/logo.png">
   <h2>欢迎来到太极开发者社区</h2>
   <div>
     请选择一个讨论组加入
@@ -15,43 +15,51 @@
   </div>
   <div>你选择了【 {{ selectForum }} 】讨论组加入！</div>
   <button @click="overAction">选择完成</button>
-  <div>{{ overText }} </div>
+  <div>{{ overText }} </div> -->
+
+  <div>
+    {{ nowTime }}
+  </div>
+  <div><button @click="getNowTime">显示当前时间</button></div>
 </template>
 
 <script lang="ts">
-import { 
-  ref,
-  reactive, 
-  toRefs,
-  watch
-  // onMounted,
-  // onBeforeMount,
-  // onBeforeUpdate,
-  // onUpdated,
-  // onRenderTracked,
-  // onRenderTriggered,
-  } from 'vue';
 
-interface DataProps {
-  forums: string[];
-  selectForum: string;
-  selectForumFun: (index: number) => void;
-}
+// import { 
+//   ref,
+//   // reactive, 
+//   // toRefs,
+//   // watch
+//   // onMounted,
+//   // onBeforeMount,
+//   // onBeforeUpdate,
+//   // onUpdated,
+//   // onRenderTracked,
+//   // onRenderTriggered,
+//   } from 'vue';
 
+// interface DataProps {
+//   forums: string[];
+//   selectForum: string;
+//   selectForumFun: (index: number) => void;
+// }
 
+import { nowTime, getNowTime } from './hooks/useNowTime'
 export default{
   name: 'App',
   setup() {
-    console.log("1-开始创建组件-----setup()");
-    const data: DataProps = reactive({
-      forums: ["前端开发","大数据","微服务"],
-      selectForum:"",
-      selectForumFun: (index: number) => {
-        data.selectForum= data.forums[index];
-      }
-    })
-
-  
+    return {
+      nowTime,
+      getNowTime
+    }
+    // console.log("1-开始创建组件-----setup()");
+    // const data: DataProps = reactive({
+    //   forums: ["前端开发","大数据","微服务"],
+    //   selectForum:"",
+    //   selectForumFun: (index: number) => {
+    //     data.selectForum= data.forums[index];
+    //   }
+    // })
 
     // 钩子函数模拟
     // onBeforeMount(() => {
@@ -79,27 +87,28 @@ export default{
     //   console.log(event)
     // })
 
-  const refData = toRefs(data);
-  const overText = ref("太极开发者社区");
-  const overAction = () =>{
-    overText.value = "选择讨论组完成|" + overText.value
-    // document.title = overText.value
-  }
-  watch([overText,() => data.selectForum],(newValue,oldValue) => {
-    console.log(`new-------->${newValue}`);
-    console.log(`old-------->${oldValue}`);
-    document.title = newValue[0]
-  })
+  // const refData = toRefs(data);
+  // const overText = ref("太极开发者社区");
+  // const overAction = () =>{
+  //   overText.value = "选择讨论组完成|" + overText.value
+  //   // document.title = overText.value
+  // }
+  // watch([overText,() => data.selectForum],(newValue,oldValue) => {
+  //   console.log(`new-------->${newValue}`);
+  //   console.log(`old-------->${oldValue}`);
+  //   document.title = newValue[0]
+  // })
     // const forums = ref(["前端开发","大数据","微服务"]);
     // const selectForum = ref("");
     // const selectForumFun = (index: number) => {
     //   selectForum.value = forums.value[index];
     // }
-    return {
-      ...refData,
-      overText,
-      overAction
-    }
+
+    // return {
+    //   ...refData,
+    //   overText,
+    //   overAction
+    // }
   },
   // beforeCreate() {
   //   console.log("1-组件创建之前-----beforeCreate()");
