@@ -17,10 +17,17 @@
   <button @click="overAction">选择完成</button>
   <div>{{ overText }} </div> -->
 
-  <div>
+ <!-- 显示获取当前时间的 -->
+  <!-- <div>
     {{ nowTime }}
   </div>
-  <div><button @click="getNowTime">显示当前时间</button></div>
+  <div><button @click="getNowTime">显示当前时间</button></div> -->
+  <div>
+    <h2>欢迎访问太极开发者社区</h2>
+    <div>随机选择一个讨论组加入</div>
+    <div v-if="loading">loading.......</div>
+    <img v-if="loaded" :src="result.message" alt="">
+  </div>
 </template>
 
 <script lang="ts">
@@ -44,14 +51,18 @@
 //   selectForumFun: (index: number) => void;
 // }
 
-import { nowTime, getNowTime } from './hooks/useNowTime'
+// import { nowTime, getNowTime } from './hooks/useNowTime'
+
+import userUrlAxios from './hooks/useUrlAxios'
 export default{
   name: 'App',
   setup() {
-    return {
-      nowTime,
-      getNowTime
-    }
+    // return {
+    //   nowTime,
+    //   getNowTime
+    // }
+    const { result, loading, loaded} = userUrlAxios("https://dog.ceo/api/breeds/image/random")
+    return { result, loading, loaded }
     // console.log("1-开始创建组件-----setup()");
     // const data: DataProps = reactive({
     //   forums: ["前端开发","大数据","微服务"],
